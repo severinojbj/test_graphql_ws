@@ -1,0 +1,25 @@
+{
+  "name": "test_graphql_ws",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:server": "ts-node src/server.ts",
+    "start:client": "ts-node src/client_users.ts",
+    "start:clientjs": "node src/client.js"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/ws": "^8.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "fastify": "^3.21.6",
+    "fastify-websocket": "^4.0.0",
+    "graphql": "^15.6.0",
+    "graphql-ws": "^5.5.0",
+    "ws": "^8.2.2"
+  },
+  "devDependencies": {}
+}
