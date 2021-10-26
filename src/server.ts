@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import cors from "cors";
 
@@ -5,8 +6,19 @@ import ws from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { graphqlHTTP } from "express-graphql";
 
-import { schema } from "./graphql/schema";
-import { roots } from "./graphql/schema";
+import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { UsersAPI } from "./datasource/user";
+
+const API_PATH = path.join(__dirname, "./graphql");
+const typeDefFiles = loadFilesSync(API_PATH, { extensions: ["graphql"] });
+const resolverFiles = loadFilesSync(API_PATH, { extensions: ["ts"] });
+
+const typeDefs = mergeTypeDefs(typeDefFiles);
+const resolvers = mergeResolvers(resolverFiles);
+
+const schema = makeExecutableSchema({ typeDefs, resolvers, UsersAPI });
 
 const main = async () => {
   const app = express();
@@ -32,7 +44,6 @@ const main = async () => {
     useServer(
       {
         schema,
-        roots,
         // context: (ctx) => {
         //   console.log(`context ${ctx.extra.request.headers.authorization}`);
         // },

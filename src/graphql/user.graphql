@@ -1,0 +1,34 @@
+scalar Datetime
+
+type User {
+  nome: String!
+  ativo: Boolean!
+  email: String
+  role: Role!
+  createdAt: Datetime
+}
+enum RolesType {
+  ESTUDANTE
+  DOCENTE
+  COODENACAO
+}
+input UserInput {
+  nome: String
+  ativo: Boolean
+  email: String
+  role: RolesType
+  createdAt: Datetime
+}
+type Role {
+  id: ID!
+  type: RolesType!
+}
+type Query {
+  users: [User]
+  user(id: ID!): User!
+}
+type Mutation {
+  addUser(user: UserInput): User!
+  updateUser(id: ID!, user: UserInput): User!
+  deleteUser(id: ID!): ID!
+}
