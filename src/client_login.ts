@@ -7,15 +7,15 @@ const client = createClient({
   webSocketImpl: ws,
 });
 
-// query
 (async () => {
   const result = await new Promise((resolve) => {
     let result: unknown;
     client.subscribe(
       {
         // query: '{  users {    value {      id      firstName      lastName    } } }',
-        query:
-          '{ login (email: "admin@teste.com", password: "123") { token } }',
+        // query:
+        //   '{ login (email: "admin@teste.com", password: "123") { token } }',
+        query: "{ hello }",
       },
       {
         next: (data) => (result = data),
@@ -30,29 +30,29 @@ const client = createClient({
   // expect(result).toEqual({ hello: 'Hello World!' });
 })();
 
-// (async () => {
-//   const onNext = () => {
-//     /* handle incoming values */
-//   };
+(async () => {
+  const onNext = (test: any) => {
+    console.log(test);
+  };
 
-//   let unsubscribe = () => {
-//     /* complete the subscription */
-//   };
+  let unsubscribe = () => {
+    /* complete the subscription */
+  };
 
-//   await new Promise((resolve, reject) => {
-//     unsubscribe = client.subscribe(
-//       {
-//         query: 'subscription { greetings }',
-//       },
-//       {
-//         next: onNext,
-//         error: reject,
-//         complete: () => resolve,
-//       },
-//     );
-//   });
+  await new Promise((resolve, reject) => {
+    unsubscribe = client.subscribe(
+      {
+        query: "subscription { greetings }",
+      },
+      {
+        next: onNext,
+        error: reject,
+        complete: () => resolve,
+      }
+    );
+  });
 
-//   console.log (unsubscribe);
+  console.log(unsubscribe);
 
-//   // expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
-// })();
+  // expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
+})();

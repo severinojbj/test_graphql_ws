@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start:server": "ts-node src/server.ts",
-    "start:client": "ts-node src/client_users.ts",
+    "start:client": "ts-node src/client_login.ts",
     "start:clientjs": "node src/client.js"
   },
   "dependencies": {

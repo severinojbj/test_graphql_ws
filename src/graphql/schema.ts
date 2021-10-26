@@ -1,4 +1,4 @@
-import { buildSchema } from 'graphql';
+import { buildSchema } from "graphql";
 
 // Construct a schema, using GraphQL schema language
 export const schema = buildSchema(`
@@ -13,11 +13,11 @@ export const schema = buildSchema(`
 // The roots provide resolvers for each GraphQL operation
 export const roots = {
   query: {
-    hello: () => 'Hello World!',
+    hello: () => "Hello World!",
   },
   subscription: {
     greetings: async function* sayHiIn5Languages() {
-      for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
+      for (const hi of ["Hi", "Bonjour", "Hola", "Ciao", "Zdravo"]) {
         yield { greetings: hi };
       }
     },

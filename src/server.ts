@@ -6,6 +6,7 @@ import { useServer } from "graphql-ws/lib/use/ws";
 import { graphqlHTTP } from "express-graphql";
 
 import { schema } from "./graphql/schema";
+import { roots } from "./graphql/schema";
 
 const main = async () => {
   const app = express();
@@ -31,12 +32,13 @@ const main = async () => {
     useServer(
       {
         schema,
-        context: (ctx) => {
-          console.log(`context ${ctx.extra.request.headers.authorization}`);
-        },
-        onConnect: (ctx) => {
-          console.log(`connect ${ctx.connectionParams?.authorization}`);
-        },
+        roots,
+        // context: (ctx) => {
+        //   console.log(`context ${ctx.extra.request.headers.authorization}`);
+        // },
+        // onConnect: (ctx) => {
+        //   console.log(`connect ${ctx.connectionParams?.authorization}`);
+        // },
         // context: async (ctx) =>
         //   console.log(`context ${JSON.stringify(ctx, null, 2)}`),
         // onNext: async (ctx) =>
